@@ -267,19 +267,19 @@ function kmDot(label,color){
     font-family:'JetBrains Mono',monospace;">${label}</div>`,
     iconSize:[21,21],iconAnchor:[10,10],className:''});
 }
-function startFlag(text,color){
+function startFlag(text,color,anchor){
   return L.divIcon({html:`<div style="background:${color};color:#fff;font-size:11px;font-weight:800;
     padding:5px 11px;border-radius:6px;white-space:nowrap;letter-spacing:.3px;
     box-shadow:0 0 14px ${color}aa,0 3px 9px rgba(0,0,0,.7);border:2px solid rgba(255,255,255,.92);
     font-family:'Inter',sans-serif;">&#9654; ${text}</div>`,
-    iconSize:null,iconAnchor:[-4,12],className:''});
+    iconSize:null,iconAnchor:anchor||[-4,12],className:''});
 }
-function metaFlag(){
+function metaFlag(anchor){
   return L.divIcon({html:`<div style="background:${GOLD};color:#0A0A0A;font-size:12.5px;font-weight:900;
     padding:6px 13px;border-radius:7px;white-space:nowrap;letter-spacing:.4px;
     box-shadow:0 0 20px ${GOLD}cc,0 3px 10px rgba(0,0,0,.75);border:2.5px solid #fff;
     font-family:'Inter',sans-serif;">&#127937; META &middot; 40 KM</div>`,
-    iconSize:null,iconAnchor:[-4,14],className:''});
+    iconSize:null,iconAnchor:anchor||[-4,14],className:''});
 }
 function parkTag(name){
   return L.divIcon({html:`<div style="background:rgba(10,10,10,.9);color:#FAFAF7;font-size:10px;font-weight:700;
@@ -296,12 +296,12 @@ D.parks.forEach(p=>{
     <div class="popup-stage">Punto de referencia en la ruta</div>`);
 });
 
-// ---- Start flags ----
-L.marker(D.start1,{icon:startFlag('SALIDA E1 &middot; 03:30',C1),zIndexOffset:900}).addTo(map)
+// ---- Start flags (separados verticalmente en el Mirador) ----
+L.marker(D.start1,{icon:startFlag('SALIDA E1 &middot; 03:30',C1,[-4,20]),zIndexOffset:920}).addTo(map)
  .bindPopup(`<div class="popup-km" style="color:${C1};">SALIDA &middot; ETAPA 1</div>
  <div class="popup-time">Mirador Sur &middot; 03:30 am</div>
  <div class="popup-stage">Solo &middot; 10.44 km (distancia real)</div>`);
-L.marker(D.start2,{icon:startFlag('SALIDA E2 &middot; 04:40',C2),zIndexOffset:900}).addTo(map)
+L.marker(D.start2,{icon:startFlag('SALIDA E2 &middot; 04:40',C2,[-4,-10]),zIndexOffset:910}).addTo(map)
  .bindPopup(`<div class="popup-km" style="color:${C2};">SALIDA &middot; ETAPA 2</div>
  <div class="popup-time">Con el equipo &middot; 04:40 am</div>
  <div class="popup-stage">10.74 km &middot; Iberoamericano &middot; La Lira &middot; +0.62 km cierre Mirador</div>`);
@@ -311,13 +311,13 @@ L.marker(D.start3,{icon:startFlag('SALIDA E3 &middot; ~05:47',C3),zIndexOffset:9
  <div class="popup-stage">18.82 km &middot; Núñez &middot; Praderas &middot; Botánico</div>`);
 
 // ---- Cierre E2: loop +0.62 km en el Mirador (al regresar) ----
-L.marker([D.e2loop.lat,D.e2loop.lon],{icon:startFlag('CIERRE E2 &middot; +0.62 km',C2),zIndexOffset:880}).addTo(map)
+L.marker([D.e2loop.lat,D.e2loop.lon],{icon:startFlag('CIERRE E2 &middot; +0.62 km',C2,[-4,-40]),zIndexOffset:890}).addTo(map)
  .bindPopup(`<div class="popup-km" style="color:${C2};">CIERRE ETAPA 2 &middot; +0.62 km</div>
  <div class="popup-time">&#128336; ${D.e2loop.lo} - ${D.e2loop.hi}</div>
  <div class="popup-stage">Loop final en el Mirador para completar 40 km simbólicos</div>`);
 
 // ---- Meta ----
-L.marker(D.meta,{icon:metaFlag(),zIndexOffset:1000}).addTo(map)
+L.marker(D.meta,{icon:metaFlag([-4,52]),zIndexOffset:1000}).addTo(map)
  .bindPopup(`<div class="popup-km" style="color:${GOLD};">&#127937; META &middot; 40 KM (40 AÑOS)</div>
  <div class="popup-time">07:43 am (6:10) &middot; 07:48 am (6:20)</div>
  <div class="popup-stage">40 años. 40 kilómetros. Completado.</div>`);
